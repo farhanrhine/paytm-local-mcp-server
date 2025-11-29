@@ -101,9 +101,9 @@ uv run fastmcp version or fastmcp version
 ### Step 1: Export Your Paytm Statement
 
 1. Open **Paytm App**
-2. Go to **Passbook** → **UPI** 
-3. Tap **Download Statement**
-4. Select date range (last 6 months recommended)
+2. Go to **Balance & History** → **Click three dots (⋮) in top right** 
+3. Tap **Download UPI Statement**
+4. Select date range (last 6 months recommended) 
 5. Download as **Excel (.xlsx)**
 6. Save to this folder
 
@@ -191,22 +191,14 @@ Your Paytm Excel has these columns:
 
 ## 🗺️ Roadmap
 
-### v1.0 (Current) - Basic Version
+### v1.0 (Current) - Version
 - [x] Import Paytm Excel statements
 - [x] Search transactions
 - [x] Summary statistics
 - [x] Top merchants
 - [x] Monthly breakdown
 
-### v2.0 (Coming Soon) - Advanced Version
-- [ ] 📊 Visual Dashboard (React + Charts)
-- [ ] 📱 PhonePe support
-- [ ] 📱 Google Pay support
-- [ ] 🏦 Bank statement support
-- [ ] 📈 Spending trends & predictions
-- [ ] 🏷️ Smart categorization
-- [ ] 💰 Budget tracking
-- [ ] 📤 Export reports
+
 
 ---
 
@@ -249,4 +241,3 @@ MIT License - Use freely!
 
 **Made with Farhan**
 
-⭐ Star this repo if it helped you!
