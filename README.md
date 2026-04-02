@@ -2,7 +2,7 @@
 
 > Query your Paytm UPI transactions using natural language with Claude AI - 100% local, privacy-first.
 
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://modelcontextprotocol.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -58,14 +58,42 @@ A simple MCP (Model Context Protocol) server that lets you analyze your Paytm UP
 
 ---
 
+## 🧩 MCP Roles (Host, Client, Server, LLM)
+
+When you run this project locally:
+
+- **MCP Server**: `paytm.py` (FastMCP) exposes tools over MCP.
+- **Client**: `clients.py` connects to the server and calls tools.
+- **LLM**: Groq model (e.g., `qwen/qwen3-32b`) used by the client.
+- **Host**: the app that drives the conversation. If you run `clients.py`, your terminal app is the host. If you use Claude Desktop or Copilot Chat, those become the host instead.
+
+---
+
+## 🔗 LangChain + LangGraph Roles
+
+In this project:
+
+- **LangChain**: builds the agent and connects the LLM to MCP tools.
+- **LangGraph**: runs the agent as a graph (model step → tool step → model step) with state and streaming.
+
+### How the parts connect
+
+1. You type a message in the host (terminal running `clients.py`).
+2. LangChain `create_agent` receives the message and decides whether to call tools.
+3. LangGraph executes the agent loop and tool calls.
+4. Tools are executed by the MCP server in `paytm.py`.
+5. The final response is returned to the host and printed.
+
 ## 📁 Project Structure
 
 ```
-fastmcp_expence_tracker/
+paytm-mcp-server/
 ├── paytm.py              # 🔧 MCP Server - main file
+├── clients.py            # 🤖 LangGraph + Groq chat client
 ├── convert_to_json.py    # 🔄 Excel to JSON converter
-├── paytm_data.json       # 📄 Your transaction data (generated)
+├── paytm.json            # 📄 Your transaction data (generated)
 ├── paytm.db              # 🗄️ SQLite database (generated)
+├── pyproject.toml        # 📦 Dependencies
 └── README.md             # 📖 This file
 ```
 
@@ -124,11 +152,16 @@ uv run convert_to_json.py
 # Test the server locally (optional)
 uv run fastmcp run paytm.py
 
-# Install in Claude Desktop
+# Optional: install in Claude Desktop
 uv run fastmcp install claude-desktop paytm.py
 ```
 
-This adds the server to Claude Desktop's config file automatically.
+### Step 3.1: Run the Chat Client (langchain & LangGraph + Groq)
+
+```bash
+# Ensure GROQ_API_KEY is set in your environment or .env
+uv run clients.py
+```
 
 ### Step 4: Restart Claude Desktop
 
@@ -164,6 +197,36 @@ Show November spending
 
 ---
 
+## 🧪 MCP Inspector (Web UI)
+
+You can inspect tools via the MCP Inspector.
+
+### Option A: SSE (recommended)
+
+1. Start the server:
+
+```bash
+uv run fastmcp run paytm.py
+```
+
+2. Start Inspector:
+
+```bash
+npx @modelcontextprotocol/inspector
+```
+
+3. In the Inspector UI:
+- Transport Type: `SSE`
+- Server URL: `http://127.0.0.1:8000/sse`
+
+### Option B: STDIO (via uv)
+
+Use this when `fastmcp` is not on your PATH.
+
+- Transport Type: `STDIO`
+- Command: `uv`
+- Arguments: `run fastmcp run paytm.py --no-banner`
+
 
 ## 📊 Data Format
 
@@ -197,6 +260,20 @@ Your Paytm Excel has these columns:
 - [x] Summary statistics
 - [x] Top merchants
 - [x] Monthly breakdown
+- [x] Local chat client (LangChain + LangGraph + Groq)
+
+### v1.1 (Planned) - MCP App Features
+- [ ] MCP app packaging (single host app for server + client)
+- [ ] Server-side prompts for consistent tool behavior
+- [ ] Authentication for MCP tool access
+- [ ] Per-user profiles and permissions
+- [ ] Built-in tool usage logs / audit trail
+
+### v1.2 (Planned) - Advanced Agent Features
+- [ ] Dynamic tool filtering (limit tools by context)
+- [ ] Streaming UI (web chat with live tool call status)
+- [ ] Scheduled reports (weekly/monthly summaries)
+- [ ] Export reports (CSV, PDF)
 
 
 
@@ -239,5 +316,5 @@ MIT License - Use freely!
 
 ---
 
-**Made with Farhan**
+**Made by Farhan**
 

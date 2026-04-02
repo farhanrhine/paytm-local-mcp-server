@@ -1,6 +1,6 @@
-def main():
-    print("Hello from paytm-mcp-server!")
+# def main():
+#     print("Hello from paytm-mcp-server!")
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
