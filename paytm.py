@@ -99,7 +99,7 @@ def import_paytm_data():
         
         return {"status": "success", "imported": count}
     except FileNotFoundError:
-        return {"status": "error", "message": "paytm_data.json not found"}
+        return {"status": "error", "message": "paytm.json not found"}
     except Exception as e:
         return {"status": "error", "message": str(e)}
 

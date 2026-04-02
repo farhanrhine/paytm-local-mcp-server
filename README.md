@@ -75,7 +75,7 @@ fastmcp_expence_tracker/
 
 ### Prerequisites
 
-- Python 3.11+
+- Python 3.12+
 - [Claude Desktop](https://claude.ai/download) installed
 
 ---
@@ -111,9 +111,9 @@ uv run fastmcp version or fastmcp version
 
 ```bash
 # Install the openpyxl library which is required to read Excel files.
-pip install openpyxl
+uv add openpyxl
 # Edit convert_to_json.py with your file name
-python convert_to_json.py
+uv run convert_to_json.py
 ```
 
 **Output:** `paytm.json` with all your transactions
