@@ -182,6 +182,10 @@ Search for Amazon
 Show November spending
 ```
 
+### Claude Desktop working example
+
+![Claude Desktop working example](asset/image/claude-desktop-working.png)
+
 ---
 
 ## 🛠️ Available Tools
